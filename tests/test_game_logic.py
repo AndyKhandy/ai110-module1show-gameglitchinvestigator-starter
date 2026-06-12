@@ -10,6 +10,7 @@ sys.modules.setdefault("streamlit", _mock_st)
 
 from logic_utils import get_range_for_difficulty
 from logic_utils import check_guess
+from logic_utils import parse_guess
 
 
 def test_easy_range():
@@ -38,3 +39,32 @@ def test_guess_too_high():
 def test_guess_too_low():
     outcome, _ = check_guess(40, 50)
     assert outcome == "Too Low"
+
+
+def test_parse_guess_empty_and_whitespace():
+    """Empty string and whitespace-only input should both fail with the same message."""
+    ok_empty, _, msg_empty = parse_guess("")
+    ok_ws, _, msg_ws = parse_guess("   ")
+    assert ok_empty is False
+    assert ok_ws is False
+    assert msg_empty == "Enter a guess."
+    assert msg_ws == "Enter a guess."
+
+
+def test_parse_guess_negative_number():
+    """Negative integers are valid to parse; check_guess should then classify them correctly."""
+    ok, value, err = parse_guess("-7")
+    assert ok is True
+    assert value == -7
+    assert err is None
+    outcome, _ = check_guess(-7, 50)
+    assert outcome == "Too Low"
+
+
+def test_parse_guess_non_numeric_string():
+    """Alphabetic and symbol strings that cannot be cast to int should fail gracefully."""
+    for bad in ("abc", "!@#", "12abc", "one"):
+        ok, value, msg = parse_guess(bad)
+        assert ok is False, f"Expected failure for input {bad!r}"
+        assert value is None
+        assert msg == "That is not a number."

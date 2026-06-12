@@ -17,6 +17,7 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
 4. When you reset the game your score is still kept (not sure if it's supposed to be like that)
 5. Another bug I found is that when you guess the right number if you got a negative score it shows a positive score.
 6. The Normal mode and Easy mode swapped number of attempts
+7. The last bug I saw was the use of num % 2 == 0 where when the attempts was an even number it would cause unexpected actions to occur. 
 
 **Bug Reproduction Log**
 

@@ -45,12 +45,14 @@ Describe your fixed game in numbered steps so a reader can follow along without 
 
 ```
 ============================================================================== test session starts ==============================================================================
-collected 7 items                                                                                                                                                              
-tests\test_game_logic.py .......                                                                                                                                     [100%]
+collected 10 items                                                                                                                                                              
+tests\test_game_logic.py .......                                                                                                                                                                                                                                           [100%]
 
-=============================================================================== 7 passed in 0.04s ===============================================================================
+============================================================================== 10 passed in 0.05s ===============================================================================
 ```
 
 ## 🚀 Stretch Features
 
 - [ ] [If you choose to complete Challenge 4, describe the Enhanced UI changes here — a screenshot is optional]
+
+The enhanced UI changes I made was reorganizing the buttons and form layout for submitting your guess. In order to allow the user to submit their guess by clicking enter, I needed to create a form where the submit button was also in the form. This meant that the 3 column layout for the submit button, reset game, and show hint was messsed up. This led to me using AI to reformat the web application and get a visual that was more pleasing and organized.
