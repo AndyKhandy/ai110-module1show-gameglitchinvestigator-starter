@@ -10,8 +10,8 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
 
 
 
-1. The first bug I found was the hints were backward. The answer was 65 and when I entered 50 it said to go lower
-2. Another bug I noticed was that the range of the numbers was wrong for the different modes (Easy, Normal, and Hard)
+1. The first bug I found was the hints were backward. The answer was 65 and when I entered 50 it said to go lower when it should say go higher. I think this bug has to do with the check_guess function. 
+2. Another bug I noticed was that the range of the numbers was wrong for the different modes (Easy, Normal, and Hard). For normal it was 1-100 when that should've been for hard.
 2. Another bug I noticed is that pressing enter doesn't submit your guess when it said it would
 3. Another thing I noticed is that you can choose a number out of range (not sure if it's a bug)
 4. When you reset the game your score is still kept (not sure if it's supposed to be like that)
@@ -62,6 +62,8 @@ I first told AI what the tests should do and then asked AI to include tests for 
 
 - How would you explain Streamlit "reruns" and session state to a friend who has never used Streamlit?
 
+Streamlit "reruns" is the idea that when a user interacts with a site, the site is redrawn from scratch starting at line 1 (in this case line 1 in app.py). It would erase itself completely and rebuild the site. Session state is the idea that data can stay or persist even after redraws. For example if you wanted to keep track of the number of rounds played you could use that as a state (st.session_state.rounds) and Streamlit would be able to look at that value and use it across redraws
+
 ---
 
 ## 5. Looking ahead: your developer habits
@@ -70,3 +72,8 @@ I first told AI what the tests should do and then asked AI to include tests for 
   - This could be a testing habit, a prompting strategy, or a way you used Git.
 - What is one thing you would do differently next time you work with AI on a coding task?
 - In one or two sentences, describe how this project changed the way you think about AI generated code.
+
+1. One habit for this project that I might want to reuse in future labs or projects is giving the AI an example in the prompt to go off of. For example I could say if the secret number is 60 and the user entered 50 it should display 📉 Go LOWER!.
+2. One thing I would do differently next time I worked with AI would be to let AI read the codebase to get a more general understanding of where functions/logic are. Then I could give AI more specific prompts of where the bug/issue may be.
+3. I always thought that AI generated code was perfect and had the best efficiency but sometimes there are better ways to write logic that humans can understand more. However, AI is really good at refactoring your code and explaining what it does line by line which is really helpful to me
+

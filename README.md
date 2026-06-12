@@ -33,20 +33,22 @@ It wrote the code, ran away, and now the game is unplayable.
 
 Describe your fixed game in numbered steps so a reader can follow along without watching a video:
 
-1. <!-- Describe this step -->
-2. <!-- Describe this step -->
-3. <!-- Describe this step -->
-4. <!-- Describe this step -->
-5. <!-- Add more steps as needed -->
+1.  User enters a guess of 30 and clicks the enter key or press the submit button
+2. Game returns "📈 Go HIGHER!"
+3. User enters a guess of 50 and clicks the enter key or press the submit button -> "📉 Go LOWER!"
+4. Attempts decreases by 1 each time and score is decreased
+5. User guesses 46 (the correct guess), the game ends, and the user has the chance to reset the game to try again
 
-**Screenshot** *(optional)*: <!-- Insert a screenshot of your fixed, winning game here -->
+**Screenshot** *(optional)*: <!-- Insert a screenshot of your fixed, winning game here -->![Picture of the working Game](image.png)
 
 ## 🧪 Test Results
 
 ```
-# Paste your pytest output here, e.g.:
-# pytest tests/
-# ========================= X passed in 0.XXs =========================
+============================================================================== test session starts ==============================================================================
+collected 7 items                                                                                                                                                              
+tests\test_game_logic.py .......                                                                                                                                     [100%]
+
+=============================================================================== 7 passed in 0.04s ===============================================================================
 ```
 
 ## 🚀 Stretch Features

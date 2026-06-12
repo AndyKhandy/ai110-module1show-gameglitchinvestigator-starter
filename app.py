@@ -1,67 +1,7 @@
 import random
 import streamlit as st
+from logic_utils import check_guess, get_range_for_difficulty, parse_guess, update_score
 
-# FIXME : Logic Breaks here
-def get_range_for_difficulty(difficulty: str):
-    if difficulty == "Easy":
-        return 1, 20
-    #FIX: Refactored logic when Claude Code noticed that there was a mistake in the range of numbers
-    if difficulty == "Normal":
-        return 1, 50
-    if difficulty == "Hard":
-        return 1, 100
-    return 1, 100
-
-
-def parse_guess(raw: str):
-    if raw is None:
-        return False, None, "Enter a guess."
-
-    if raw == "":
-        return False, None, "Enter a guess."
-
-    try:
-        if "." in raw:
-            value = int(float(raw))
-        else:
-            value = int(raw)
-    except Exception:
-        return False, None, "That is not a number."
-
-    return True, value, None
-
-
-def check_guess(guess, secret):
-    if guess == secret:
-        return "Win", "🎉 Correct!"
-
-    #FIX Refacted Logic when pytest tests failed for this function
-    try:
-        if guess > secret:
-            return "Too High", "📉 Go LOWER!"
-        else:
-            return "Too Low", "📈 Go HIGHER!"
-    except TypeError:
-        g = str(guess)
-        if g == secret:
-            return "Win", "🎉 Correct!"
-        if g > secret:
-            return "Too High", "📈 Go HIGHER!"
-        return "Too Low", "📉 Go LOWER!"
-
-
-def update_score(current_score: int, outcome: str, attempt_number: int):
-    if outcome == "Win":
-        points = 100 - 10 * attempt_number
-        return current_score + points
-
-    if outcome == "Too High":
-        return current_score - 5
-
-    if outcome == "Too Low":
-        return current_score - 5
-
-    return current_score
 
 st.set_page_config(page_title="Glitchy Guesser", page_icon="🎮")
 
@@ -106,18 +46,25 @@ if "history" not in st.session_state:
 
 st.subheader("Make a guess")
 
-raw_guess = st.text_input(
-    "Enter your guess:",
-    key=f"guess_input_{difficulty}"
-)
+#FIX allow the user to press enter to submit their guess
+with st.form("guess_form"):
+    input_col, btn_col = st.columns([4, 1])
+    with input_col:
+        raw_guess = st.text_input(
+            "Enter your guess:",
+            key=f"guess_input_{difficulty}",
+            placeholder=f"Number between {low} and {high}",
+            label_visibility="collapsed",
+        )
+    with btn_col:
+        submit = st.form_submit_button("Submit 🚀", use_container_width=True)
 
-col1, col2, col3 = st.columns(3)
+#Change the website layout a bit
+col1, col2 = st.columns([1, 1])
 with col1:
-    submit = st.button("Submit Guess 🚀")
+    new_game = st.button("🔁 New Game", use_container_width=True)
 with col2:
-    new_game = st.button("New Game 🔁")
-with col3:
-    show_hint = st.checkbox("Show hint", value=True)
+    show_hint = st.checkbox("💡 Show hint", value=True)
 
 #FIX: I explained that pressing New Game did not reset the game and kept the user in a locked state
 if new_game:
@@ -172,7 +119,7 @@ if submit:
                 )
 
 st.info(
-    f"Guess a number between 1 and 100. "
+    f"Guess a number between {low} and {high}. "
     f"Attempts left: {attempt_limit - st.session_state.attempts}"
 )
 
